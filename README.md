@@ -1,0 +1,4 @@
+## What is Aprover?
+Aprover is a user-friendly framework for the verification of cryptographic protocols. Aprover aims to reduce the learning effort and time to master a formal verification approach. Therefore, Aprover has as its primary goal a broader adoption of Security by Design in the protocol development lifecycle, hiding the mathematical formalism and improving the tool usability.
+
+The result is achieved by using a graphical front-end which maps a list of primitive to a language called Kant used as a shared language between the various back-end.The back-end selection can be operated at runtime, choosing the correct one for the specific properties using as a discriminating factor the time required to retrieve the property evaluation but also the capability of the back-end to express the requested property.
