@@ -1,0 +1,230 @@
+scenario passive_attacker_sucessful_exchange
+
+load ZWave_join_MITM_validation.asm
+
+check slaveState(nodeB) = INIT_SLV and controllerState(nodeA) = INIT_CTRL;
+
+set controller(nodeA) := CONTROLLER_S2;
+set chosenMode := PASSIVE;
+set slave(nodeB) := DOOR_LOCK_NAT;
+
+step
+
+check controllerState(nodeA) = ADD_MODE and   slaveState(nodeB) = LEARN_MODE;
+
+set passed(TB1) := false;
+
+step
+
+check protocolMessage(nodeA,nodeE) = KEX_GET and   controllerState(nodeA) = WAIT_KEX_REP and   slaveState(nodeB) = LEARN_MODE;
+
+set passed(TB1) := false;
+set passed(TA1) := false;
+
+step
+
+check protocolMessage(nodeE,nodeB) = KEX_GET and   controllerState(nodeA) = WAIT_KEX_REP and   slaveState(nodeB) = LEARN_MODE;
+
+set passed(TB1) := false;
+set passed(TA1) := false;
+
+step
+
+check controllerState(nodeA) = WAIT_KEX_REP and   slaveState(nodeB) = WAIT_KEX_SET and   protocolMessage(nodeB,nodeE) = KEX_REP;
+
+set passed(TA1) := false;
+set passed(TB2) := false;
+
+step
+
+check protocolMessage(nodeE,nodeA) = KEX_REP and   controllerState(nodeA) = WAIT_KEX_REP and   slaveState(nodeB) = WAIT_KEX_SET;
+
+set passed(TA1) := false;
+set passed(TB2) := false;
+
+step
+
+check controllerState(nodeA) = WAIT_EVAL_KEX_KEY and   slaveState(nodeB) = WAIT_KEX_SET;
+
+set passed(TB2) := false;
+set passed(TAI1) := false;
+
+step
+
+check controllerState(nodeA) = WAIT_EVAL_KEX_SCHEME and   slaveState(nodeB) = WAIT_KEX_SET;
+
+set passed(TB2) := false;
+set passed(TAI1) := false;
+
+step
+
+check controllerState(nodeA) = WAIT_EVAL_KEX_CURVE and   slaveState(nodeB) = WAIT_KEX_SET;
+
+set passed(TB2) := false;
+set passed(TAI1) := false;
+
+step
+
+check controllerState(nodeA) = WAIT_EVAL_CSA and   slaveState(nodeB) = WAIT_KEX_SET;
+
+set passed(TB2) := false;
+set passed(TAI1) := false;
+
+step
+
+check controllerState(nodeA) = WAIT_ECDH_PUB_JOIN and   slaveState(nodeB) = WAIT_KEX_SET;
+
+set passed(TB2) := false;
+set passed(TAI1) := false;
+set userGrantS2Access := true;
+set userGrantS2Auth := false;
+set userGrantS2Unauth := false;
+set userGrantS0 := true;
+
+step
+
+check protocolMessage(nodeA,nodeE) = KEX_SET and   controllerState(nodeA) = WAIT_ECDH_PUB_JOIN and   slaveState(nodeB) = WAIT_KEX_SET;
+
+set passed(TB2) := false;
+set passed(TA2) := false;
+
+step
+
+check protocolMessage(nodeE,nodeB) = KEX_SET and   controllerState(nodeA) = WAIT_ECDH_PUB_JOIN and   slaveState(nodeB) = WAIT_KEX_SET;
+
+set passed(TB2) := false;
+set passed(TA2) := false;
+
+step
+
+check controllerState(nodeA) = WAIT_ECDH_PUB_JOIN and   slaveState(nodeB) = WAIT_EVAL_SET_KEX_KEY;
+
+set passed(TA2) := false;
+
+step
+
+check controllerState(nodeA) = WAIT_ECDH_PUB_JOIN and   slaveState(nodeB) = WAIT_EVAL_SET_KEX_SCHEME;
+
+set passed(TA2) := false;
+
+step
+
+check controllerState(nodeA) = WAIT_ECDH_PUB_JOIN and   slaveState(nodeB) = WAIT_EVAL_SET_KEX_CURVE;
+
+set passed(TA2) := false;
+
+step
+
+check controllerState(nodeA) = WAIT_ECDH_PUB_JOIN and   slaveState(nodeB) = WAIT_EVAL_SET_CSA;
+
+set passed(TA2) := false;
+
+step
+
+check controllerState(nodeA) = WAIT_ECDH_PUB_JOIN and  slaveState(nodeB) = WAIT_ECDH_PUB_CTRL;
+
+set passed(TA2) := false;
+
+step
+
+check controllerState(nodeA) = WAIT_ECDH_PUB_JOIN and   slaveState(nodeB) = WAIT_ECDH_PUB_CTRL and   protocolMessage(nodeB,nodeE) = PUB_KEY_REP_JOIN;
+
+set passed(TA2) := false;
+set passed(TB3) := false;
+
+step
+
+check protocolMessage(nodeE,nodeA) = PUB_KEY_REP_JOIN and   controllerState(nodeA) = WAIT_ECDH_PUB_JOIN and   slaveState(nodeB) = WAIT_ECDH_PUB_CTRL;
+
+set passed(TA2) := false;
+set passed(TB3) := false;
+set ctrlAbort := false;
+
+step
+
+check controllerState(nodeA) = INSERT_PIN and   slaveState(nodeB) = WAIT_ECDH_PUB_CTRL;
+
+set passed(TB3) := false;
+set passed(TAI2) := false;
+set pinCode := true;
+
+step
+
+check protocolMessage(nodeA,nodeE) = PUB_KEY_REP_CTRL and   controllerState(nodeA) = WAIT_NONCE and   slaveState(nodeB) = WAIT_ECDH_PUB_CTRL;
+
+set passed(TB3) := false;
+set passed(TAI2) := false;
+
+step
+
+check protocolMessage(nodeE,nodeB) = PUB_KEY_REP_CTRL and   controllerState(nodeA) = WAIT_NONCE and   slaveState(nodeB) = WAIT_ECDH_PUB_CTRL;
+
+set passed(TB3) := false;
+
+set passed(TAI2) := false;
+set slvAbort := false;
+
+step
+
+check controllerState(nodeA) = WAIT_NONCE and   slaveState(nodeB) = INSERT_PIN_CSA;
+
+set passed(TAI2) := false;
+set passed(TBI1) := false;
+
+step
+
+check controllerState(nodeA) = WAIT_NONCE and   slaveState(nodeB) = WAIT_NONCE_REP_REI and   protocolMessage(nodeB,nodeE) = NONCE_GET;
+
+set passed(TAI2) := false;
+set passed(TBI1) := false;
+
+step
+
+check protocolMessage(nodeE,nodeA) = NONCE_GET and   controllerState(nodeA) = WAIT_NONCE and   slaveState(nodeB) = WAIT_NONCE_REP_REI;
+
+set passed(TAI2) := false;
+set passed(TBI1) := false;
+
+step
+
+check protocolMessage(nodeA,nodeE) = NONCE_REPORT and   controllerState(nodeA) = WAIT_SEI_KEX_SET_ECHO and   slaveState(nodeB) = WAIT_NONCE_REP_REI;
+
+set passed(TAI2) := false;
+set passed(TBI1) := false;
+
+step
+
+check protocolMessage(nodeE,nodeB) = NONCE_REPORT and   controllerState(nodeA) = WAIT_SEI_KEX_SET_ECHO and   slaveState(nodeB) = WAIT_NONCE_REP_REI;
+
+set passed(TAI2) := false;
+set passed(TBI1) := false;
+
+step
+
+check controllerState(nodeA) = WAIT_SEI_KEX_SET_ECHO and   slaveState(nodeB) = WAIT_KEX_REPORT_ECHO and   protocolMessage(nodeB,nodeE) = EC_SEI_KEX_SET_ECHO;
+
+set passed(TAI2) := false;
+set passed(TBI1) := false;
+
+step
+
+check protocolMessage(nodeE,nodeA) = EC_SEI_KEX_SET_ECHO and   controllerState(nodeA) = WAIT_SEI_KEX_SET_ECHO and   slaveState(nodeB) = WAIT_KEX_REPORT_ECHO;
+
+set passed(TAI2) := false;
+set passed(TBI1) := false;
+
+step
+
+check protocolMessage(nodeA,nodeE) = EC_KEX_REPORT_ECHO and   controllerState(nodeA) = OK_C and   slaveState(nodeB) = WAIT_KEX_REPORT_ECHO;
+
+set passed(TBI1) := false;
+
+step
+
+check protocolMessage(nodeE,nodeB) = EC_KEX_REPORT_ECHO and   controllerState(nodeA) = OK_C and   slaveState(nodeB) = WAIT_KEX_REPORT_ECHO;
+
+set passed(TBI1) := false;
+
+step
+
+check controllerState(nodeA) = OK_C and   slaveState(nodeB) = OK_S;
