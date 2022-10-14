@@ -1,0 +1,25 @@
+{
+  "name": "aproversite",
+  "version": "1.0.0",
+  "description": "",
+  "source": "./src/index.html",
+  "scripts": {
+    "dev": "parcel src/index.html src/messageBuilder.html",
+    "build": "parcel build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.7.0",
+    "parcel": "^2.7.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.1",
+    "boxicons": "^2.1.4",
+    "draw2d": "file:../../../../../../Users/0xm4r10/Research/Blueprint/draw2d",
+    "jquery": "^1.12.4",
+    "jquery-ui-bundle": "^1.12.1-migrate",
+    "shifty": "^2.19.1"
+  }
+}

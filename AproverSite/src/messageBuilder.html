@@ -1,0 +1,233 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="./assets/scss/main.scss">
+    <link rel="stylesheet" href="assets/scss/styleMessageBuilder.scss" />
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/theme.min.css" />
+    <!-- <link rel="stylesheet" href="http://www.draw2d.org/draw2d_touch/jsdoc/draw2d/css/contextmenu.css"> -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.8.0/jquery.contextMenu.css" />
+
+
+    <!-- <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="//www.draw2d.org/draw2d_touch/jsdoc/draw2d/lib/shifty.js"></script>
+    <script src="//www.draw2d.org/draw2d_touch/jsdoc/draw2d/lib/raphael.js"></script>
+    <script src="//www.draw2d.org/draw2d_touch/jsdoc/draw2d/lib/jquery.autoresize.js"></script>
+    <script src="//www.draw2d.org/draw2d_touch/jsdoc/draw2d/lib/jquery-touch_punch.js"></script>
+    <!-- <script src="http://www.draw2d.org/draw2d_touch/jsdoc/draw2d/lib/jquery.contextmenu.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.8.0/jquery.contextMenu.min.js"></script>
+    <script src="//www.draw2d.org/draw2d_touch/jsdoc/draw2d/lib/rgbcolor.js"></script>
+    <script src="//www.draw2d.org/draw2d_touch/jsdoc_6/draw2d/lib/StackBlur.js"></script>
+    <script src="//www.draw2d.org/draw2d_touch/jsdoc/draw2d/lib/canvg.js"></script>
+    <script src="//www.draw2d.org/draw2d_touch/jsdoc/draw2d/lib/Class.js"></script>
+    <script src="//www.draw2d.org/draw2d_touch/jsdoc/draw2d/lib/json2.js"></script>
+    <script src="//www.draw2d.org/draw2d_touch/jsdoc/draw2d/lib/pathfinding-browser.min.js"></script>
+    <!-- <script src="http://www.draw2d.org/draw2d_touch/jsdoc/draw2d/src/draw2d.js"></script> -->
+
+
+
+    <script type="text/javascript">
+        import('./assets/js/Application.js').then(function () {
+
+            //var routerToUse = new draw2d.layout.connection.SplineConnectionRouter();
+            var app = new Application();
+            var sec = document.getElementsByClassName("collapsible_security");
+            var mes = document.getElementsByClassName("collapsible_message");
+            var know = document.getElementsByClassName("collapsible_knowledge");
+            sec[0].addEventListener("click", function () {
+                this.classList.toggle("active_sec");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+
+                } else {
+                    content.style.display = "block";
+
+                }
+            });
+            mes[0].addEventListener("click", function () {
+                this.classList.toggle("active_mess");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+
+                } else {
+                    content.style.display = "block";
+
+                }
+            });
+            know[0].addEventListener("click", function () {
+                this.classList.toggle("active_knowledge");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+
+                } else {
+                    content.style.display = "block";
+
+                }
+            });
+
+        });
+
+        var recDialog;
+        $(function () {
+            recDialog = $("#dialog").dialog({
+                modal: true,
+                closeOnEscape: false,
+                open: function (event, ui) { $(".ui-dialog-titlebar-close").hide(); }
+
+
+
+            });
+        });
+
+        $(function () {
+            $("#next").click(function () {
+                recDialog.dialog("close");
+                console.log("closed");
+            });
+        });
+
+    </script>
+
+
+
+</head>
+
+<body id="container">
+    <div id="dialog" title="Message Receiver" style="z-index:150;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    Sender:
+                </div>
+                <div class="col-sm">
+                    Alice
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    Receiver:
+                </div>
+                <div class="col-sm">
+                    <select name="membership" id="membership">
+                        <option value="Alice">Alice</option>
+                        <option value="Bob" selected>Bob</option>
+                        <option value="Server">Server</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+
+                </div>
+                <div class="col-auto no-gutters">
+                    <button id="next" type="button">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toolbar" class="navbar-default">
+    </div>
+    <div id="submit">
+    </div>
+
+    <div id="side-nav">
+
+        <div id="layer_elements"></div>
+        <button type="button" class="collapsible_security collapsible">Security Concepts</button>
+        <div class="content">
+            <div id="layer_header" class="highlight panetitle blackgradient">
+                <div data-shape="AsymmetricEncryption" class="palette_node_element_asym draw2d_droppable"
+                    title="drag&amp;drop the table into the canvas..">Asymmetric Encryption</div>
+
+            </div>
+            <div id="layer_header" class="highlight panetitle blackgradient">
+                <div data-shape="SymmetricEncryption" class="palette_node_element_sym draw2d_droppable"
+                    title="drag&amp;drop the table into the canvas..">Symmetric Encryption</div>
+            </div>
+
+            <div id="layer_elements"></div>
+            <div id="layer_header" class="highlight panetitle blackgradient">
+                <div data-shape="Signature" class="palette_node_element_sign draw2d_droppable"
+                    title="drag&amp;drop the table into the canvas..">Signature</div>
+
+            </div>
+            <div id="layer_header" class="highlight panetitle blackgradient">
+                <div data-shape="MAC" class="palette_node_element_mac draw2d_droppable"
+                    title="drag&amp;drop the table into the canvas..">MAC</div>
+            </div>
+
+            <div id="layer_header" class="highlight panetitle blackgradient">
+                <div data-shape="Hash" class="palette_node_element_hash draw2d_droppable"
+                    title="drag&amp;drop the table into the canvas..">Hash</div>
+            </div>
+        </div>
+        <button type="button" class="collapsible_message collapsible">Message Utilities</button>
+        <div class="content">
+            <div id="layer_header" class="highlight panetitle blackgradient">
+                <div data-shape="Message" class="palette_node_element_message draw2d_droppable"
+                    title="drag&amp;drop the table into the canvas..">Message</div>
+            </div>
+            <div id="layer_header" class="highlight panetitle blackgradient">
+                <div data-shape="Group" class="palette_node_element_group draw2d_droppable"
+                    title="drag&amp;drop the table into the canvas..">Group</div>
+            </div>
+
+
+        </div>
+        <button type="button" class="collapsible_knowledge collapsible">Knowledge</button>
+        <div class="content">
+            <div id="layer_header" class="highlight panetitle blackgradient">
+                <div data-shape="Nounce" class="palette_node_element_nounce draw2d_droppable"
+                    title="drag&amp;drop the table into the canvas..">Nounce</div>
+            </div>
+            <div id="layer_header" class="highlight panetitle blackgradient">
+                <div data-shape="IDCertificate" class="palette_node_element_idcert draw2d_droppable"
+                    title="drag&amp;drop the table into the canvas..">Identity Certificate</div>
+            </div>
+            <div id="layer_header" class="highlight panetitle blackgradient">
+                <div data-shape="BitStringData" class="palette_node_element_bitstring draw2d_droppable"
+                    title="drag&amp;drop the table into the canvas..">Bitstring</div>
+            </div>
+            <div id="layer_header" class="highlight panetitle blackgradient">
+                <div data-shape="Timestamp" class="palette_node_element_timestamp draw2d_droppable"
+                    title="drag&amp;drop the table into the canvas..">Timestamp</div>
+            </div>
+            <div id="layer_header" class="highlight panetitle blackgradient">
+                <div data-shape="SymmetricKey" class="palette_node_element_symkey draw2d_droppable"
+                    title="drag&amp;drop the table into the canvas..">Symmetric Key</div>
+            </div>
+            <div id="layer_header" class="highlight panetitle blackgradient">
+                <div data-shape="AsymmetricPubKey" class="palette_node_element_asympubkey draw2d_droppable"
+                    title="drag&amp;drop the table into the canvas..">Asymmetric Public Key</div>
+            </div>
+            <div id="layer_header" class="highlight panetitle blackgradient">
+                <div data-shape="AsymmetricPrivKey" class="palette_node_element_asymprivkey draw2d_droppable"
+                    title="drag&amp;drop the table into the canvas..">Asymmetric Private Key</div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div id="canvas">
+    </div>
+    <script src="https://unpkg.com/jquery@3.1.1/dist/jquery.js"></script>
+    <script src="https://unpkg.com/jquery-ui-bundle@1.12.1-migrate/jquery-ui.js"></script>
+
+
+</body>
+
+</html>

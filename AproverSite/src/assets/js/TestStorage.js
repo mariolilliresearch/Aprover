@@ -1,0 +1,10 @@
+var cert=['CA'];//,'CB','CE']
+localStorage.setItem('IDCertificate', JSON.stringify(cert));
+var nounce=['NA','NB'];
+localStorage.setItem('Nounce', JSON.stringify(nounce));
+var symkey=['KAB'];
+localStorage.setItem('SymmetricKey', JSON.stringify(symkey));
+var asymprivkey=['KPRIVA'];
+localStorage.setItem('AsymmetricPrivKey', JSON.stringify(asymprivkey));
+var asympubkey=['KPUBA','KPUBB'];
+localStorage.setItem('AsymmetricPrivKey', JSON.stringify(asympubkey));
